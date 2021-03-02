@@ -1,106 +1,261 @@
 'use strict';
 
-let products = [
-  'bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg',
-  'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg',
-  'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg',
-  'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
+class User{
+  constructor(){
+    this.Results = false;
+    this.SessionRounds = 25;
+    this.Rounds = 0;
+  }
 
-const resultButton = document.getElementById( 'resultButton' );
-const imageSection = document.getElementById( 'imageSection' );
-const leftImage = document.getElementById( 'leftImage' );
-const middleImage = document.getElementById( 'middleImage' );
-const rightImage = document.getElementById( 'rightImage' );
+  EditSessionRounds(strRounds){
+    this.SessionRounds = parseInt(strRounds);
 
-Product.allProducts = [];
+  }
 
-let leftIndex;
-let middleIndex;
-let rightIndex;
-let validClicks = 25;
-let clicksCounter = 0;
-//Product constructor
-function Product( name ) {
-  this.name = name;
-  this.img = `./img/${name}`;
-  this.shown = 0;
-  this.clicks = 0;
-  Product.allProducts.push( this );
 }
-//render funvtion
-function render() {
-  resultButton.style.display = 'none';
 
-  let leftImageIndex;
-  let middleImageIndex;
-  let rightImageIndex;
+class Product{  
+    constructor(name, filePath, description){
+    this.Name = name;
+    this.FilePath = filePath;
+    this.Description = description;
+    this.Shown = 0;
+    this.Clicked = 0;
 
-  leftImageIndex = randomNumber( 0, products.length - 1 );
-  leftImage.src = Product.allProducts[leftImageIndex].img;
-  leftImage.alt = Product.allProducts[leftImageIndex].name;
-  leftIndex = leftImageIndex;
+  }
 
-  do {
-    middleImageIndex = randomNumber( 0, products.length - 1 );
-    rightImageIndex = randomNumber( 0, products.length - 1 );
-  } while ( ( leftImageIndex === middleImageIndex ) || ( leftImageIndex === rightImageIndex ) || ( middleImageIndex === rightImageIndex ) );
-
-  middleImage.src = Product.allProducts[middleImageIndex].img;
-  middleImage.alt = Product.allProducts[leftImageIndex].name;
-  rightImage.src = Product.allProducts[rightImageIndex].img;
-  rightImage.alt = Product.allProducts[leftImageIndex].name;
-  middleIndex = middleImageIndex;
-  rightIndex = rightImageIndex;
-
-  Product.allProducts[leftImageIndex].shown++;
-  Product.allProducts[middleImageIndex].shown++;
-  Product.allProducts[rightImageIndex].shown++;
 }
-//function to generate random
-function randomNumber( min, max ) {
-  return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
-}
-// listener for image clicks
-imageSection.addEventListener( 'click', handelClick );
-function handelClick( event ) {
-  if ( clicksCounter < validClicks - 1 ){
-    const clickedElement = event.target;
-    clicksCounter ++;
 
-    if ( clickedElement.id === 'leftImage' ) {
-      Product.allProducts[leftIndex].clicks += 1;
-    }
-    else if ( clickedElement.id === 'middleImage' ) {
-      Product.allProducts[middleIndex].clicks += 1;
-    }
-    else if ( clickedElement.id === 'rightImage' ) {
-      Product.allProducts[rightIndex].clicks += 1;
-    }
-    render();
+class AllProducts {
+  constructor() {
+    this.ReadyToDisplayProducts = [];
+    this.Database = [
+      {
+        productName: 'bag',
+        PathFile: 'bag.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'banana',
+        PathFile: 'banana.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'bathroom',
+        PathFile: 'bathroom.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'boots',
+        PathFile: 'boots.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'breakfast',
+        PathFile: 'breakfast.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'bubblegum',
+        PathFile: 'bubblegum.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'chair',
+        PathFile: 'chair.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'cthulhu',
+        PathFile: 'cthulhu.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'dog-duck',
+        PathFile: 'dog-duck.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'dragon',
+        PathFile: 'dragon.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'pen',
+        PathFile: 'pen.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'pet-sweep',
+        PathFile: 'pet-sweep.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'scissors',
+        PathFile: 'scissors.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'shark',
+        PathFile: 'shark.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'sweep',
+        PathFile: 'sweep.png',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'tauntaun',
+        PathFile: 'tauntaun.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'unicorn',
+        PathFile: 'unicorn.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'usb',
+        PathFile: 'usb.gif',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'water-can',
+        PathFile: 'water-can.jpg',
+        Des: 'This is product is amazing'
+      },
+      {
+        productName: 'wine-glass',
+        PathFile: 'wine-glass.jpg',
+        Des: 'This is product is amazing'
+      }];
+
+
+  }
+
+  ShowRandomProduct(){
+
+  }
+}
+
+let session = new User();
+let allProducts = new AllProducts();
+
+function getNewRandomNumber( min, max, oldRand = -1, oldRand2 =-1 ) {
+  if ((oldRand > 0)&&(oldRand2 > 0)){
+    let newRand = -1;
+    do{
+      newRand = Math.floor( Math.random() * ( max - min + 1 ) ) + min
+
+    } while((newRand === oldRand) || (newRand === oldRand2))
+
+    return newRand;
+
+  }else if (oldRand > 0){
+    let newRand = -1;
+    do{
+      newRand = Math.floor( Math.random() * ( max - min + 1 ) ) + min
+
+    } while(newRand == oldRand)
+
+    return newRand;
+
+  }
+  else
+    return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+
+}
+
+function clickEvent(event, product){
+  product.Clicked++;
+  startVotingSystem();
+}
+
+function buttonClickEvent(event){
+  const resultSection = document.getElementById( 'mainSection' );
+  resultSection.innerHTML = "";
+
+  const list = document.createElement( 'ul' );
+  resultSection.appendChild( list );
+
+  for( let i = 0; i < allProducts.ReadyToDisplayProducts.length; i++ ){
+    const listItem = document.createElement( 'li' );
+    list.appendChild( listItem );
+    listItem.textContent = `${allProducts.ReadyToDisplayProducts[i].Name} has been shown ${allProducts.ReadyToDisplayProducts[i].Shown} times, and been selected ${allProducts.ReadyToDisplayProducts[i].Clicked} times.`;
+  }
+
+  document.getElementById("showResult").removeEventListener( 'click', buttonClickEvent );
+
+}
+
+function startVotingSystem(){
+  console.clear();
+
+  if (session.Rounds < session.SessionRounds){
+    let rand1 = getNewRandomNumber(0, allProducts.Database.length - 1);
+    let rand2 = getNewRandomNumber(0, allProducts.Database.length - 1, rand1);
+    let rand3 = getNewRandomNumber(0, allProducts.Database.length - 1, rand1, rand2);
+
+    let product = allProducts.ReadyToDisplayProducts[rand1];
+    document.getElementById("firstImage").src = product.FilePath;
+    document.getElementById("firstImage-title").innerHTML = product.Name;
+    document.getElementById("firstImage-des").innerHTML = product.Description;
+    // if(document.getElementById("firstImage").onclick == null)
+    //   document.getElementById("firstImage").addEventListener('click', (event) =>{ clickEvent(event, product); });  
+    // else
+      document.getElementById("firstImage").onclick = (event) =>{ clickEvent(event, product); } 
+    product.Shown++;
+    console.log("Clicked: " + product.Clicked + ", Shown:"+ product.Shown);
+    
+    product = allProducts.ReadyToDisplayProducts[rand2];
+    document.getElementById("secondImage").src = product.FilePath;
+    document.getElementById("secondImage-title").innerHTML = product.Name;
+    document.getElementById("secondImage-des").innerHTML = product.Description;
+    // if(document.getElementById("secondImage").onclick == null)
+    //   document.getElementById("secondImage").addEventListener('click', (event) =>{ clickEvent(event, product); });  
+    // else
+      document.getElementById("secondImage").onclick = (event) =>{ clickEvent(event, product); }    
+    product.Shown++;
+    console.log("Clicked: " + product.Clicked + ", Shown:"+ product.Shown);
+    
+    product = allProducts.ReadyToDisplayProducts[rand3];
+    document.getElementById("thirdImage").src = product.FilePath;  
+    document.getElementById("thirdImage-title").innerHTML = product.Name;
+    document.getElementById("thirdImage-des").innerHTML = product.Description;  
+    // if(document.getElementById("thirdImage").onclick == null)
+    //   document.getElementById("thirdImage").addEventListener('click', (event) =>{ clickEvent(event, product); });  
+    // else
+      document.getElementById("thirdImage").onclick = (event) =>{ clickEvent(event, product); }  
+    product.Shown++;  
+    console.log("Clicked: " + product.Clicked + ", Shown:"+ product.Shown);
+
+    session.Rounds++;
+    console.log("Rounds: " + session.Rounds);
+
   }
   else{
-    imageSection.removeEventListener( 'click', handelClick );
-    resultButton.style.display = 'block';
-  }
-}
-// listener for button click
-resultButton.addEventListener( 'click', handelButtonClick );
-function handelButtonClick( ){
-  const resultSection = document.getElementById( 'resultSection' );
-  const ulElement = document.createElement( 'ul' );
-  resultSection.appendChild( ulElement );
-
-  for( let i = 0; i < Product.allProducts.length; i++ ){
-    const liElement = document.createElement( 'li' );
-    ulElement.appendChild( liElement );
-    liElement.textContent = `${Product.allProducts[i].name.slice( 0, -4 )} had ${Product.allProducts[i].clicks} votes, and was seen ${Product.allProducts[i].shown} times.`;
+    document.getElementById("showResult").disabled = false;
+    document.getElementById("showResult").onclick = (event) =>{ buttonClickEvent(event); }
   }
 
-  resultButton.removeEventListener( 'click', handelButtonClick );
 }
 
 
-for ( let i = 0; i < products.length; i++ ) {
-  new Product( products[i] );
+function init(){
+
+  for(let i = 0; i < allProducts.Database.length; i++ ){
+    allProducts.ReadyToDisplayProducts.push(
+      new Product(
+        allProducts.Database[i].productName, 
+        "img\\" + allProducts.Database[i].PathFile, 
+        allProducts.Database[i].Des
+      )
+    );
+  }
+
+  startVotingSystem();
+
 }
-render();
+
+init();
